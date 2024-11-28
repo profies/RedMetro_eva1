@@ -21,11 +21,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import es.madrid.redmetro.eva1.dao.IColorDAO;
 import es.madrid.redmetro.eva1.dao.ITrenDAO;
-import es.madrid.redmetro.eva1.dao.impl.ColorDaoJDBC;
 import es.madrid.redmetro.eva1.dao.impl.TrenDaoJDBC;
 import es.madrid.redmetro.eva1.ficheros.xml.escritura.ColorEscXML;
 import es.madrid.redmetro.eva1.ficheros.xml.escritura.InfoTrenesLineaColorXML;
@@ -35,7 +34,6 @@ import es.madrid.redmetro.eva1.ficheros.xml.lectura.InfoTrenesEstacionesAaccesos
 import es.madrid.redmetro.eva1.ficheros.xml.lectura.TrenXML;
 import es.madrid.redmetro.eva1.utilidades.GestorFicheroConfiguracion;
 import es.madrid.redmetro.eva1.vo.Cochera;
-import es.madrid.redmetro.eva1.vo.Color;
 import es.madrid.redmetro.eva1.vo.Linea;
 import es.madrid.redmetro.eva1.vo.Tren;
 
@@ -48,9 +46,9 @@ public class GestorFicherosXML {
 	public void procesarFicheroTrenXML(){
 		// Dos opciones: 1. Usar Jackson - 2. Usar DOM
 		// 1. Usar Jackson
-		// List<TrenXML> listaTrenXML = gestorFicheros.obtenerListaTrenesXML();
+		List<TrenXML> listaTrenXML = obtenerListaTrenesXML();
 		// 2. Usar DOM
-		List<TrenXML> listaTrenXML = obtenerListaTrenesXMLDeDOM();
+		//List<TrenXML> listaTrenXML = obtenerListaTrenesXMLDeDOM();
 
 		// Tratamiento TrenXML
 		int resultado = 0;
@@ -89,21 +87,21 @@ public class GestorFicherosXML {
 			tren = new Tren();
 			tren.setCodigoTren(trenXML.getId());
 			tren.setModelo(trenXML.getModelo());
-			tren.setEmpresaConstructora(trenXML.getEmpresa_constructora());
+			tren.setEmpresaConstructora(trenXML.getEmpresaConstructora());
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy");
 			Date fechaIncorporacion = null;
 			try {
-				fechaIncorporacion = formato.parse(trenXML.getAnyo_incorporacion());
+				fechaIncorporacion = formato.parse(trenXML.getAnyoIncorporacion());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			tren.setFechaIncorporacion(fechaIncorporacion);
 			Linea linea = new Linea();
-			linea.setCodigoLinea(trenXML.getId_linea());
+			linea.setCodigoLinea(trenXML.getIdLinea());
 			tren.setLinea(linea);
 			Cochera cochera = new Cochera();
-			cochera.setCodigoCochera(trenXML.getCod_cochera());
+			cochera.setCodigoCochera(trenXML.getCodCochera());
 			tren.setCochera(cochera);
 		}
 		return tren;
@@ -148,11 +146,11 @@ public class GestorFicherosXML {
 
 					TrenXML trenXML = new TrenXML();
 					trenXML.setId(idTren);
-					trenXML.setAnyo_incorporacion(anyoFabricacion);
+					trenXML.setAnyoIncorporacion(anyoFabricacion);
 					trenXML.setModelo(modelo);
-					trenXML.setEmpresa_constructora(empresa_constructora);
-					trenXML.setCod_cochera(codigoCochera);
-					trenXML.setId_linea(idLinea);
+					trenXML.setEmpresaConstructora(empresa_constructora);
+					trenXML.setCodCochera(codigoCochera);
+					trenXML.setIdLinea(idLinea);
 
 					listaTrenesXML.add(trenXML);
 				}
@@ -167,9 +165,12 @@ public class GestorFicherosXML {
 		InfoTrenesLineaColorXML informacion = obtenerInfoTrenesLineaColorXML();
 		String nombreFicheroXML = GestorFicheroConfiguracion.getInfoConfiguracion("ruta.directorio")
 				+ GestorFicheroConfiguracion.getInfoConfiguracion("nombre.fichero.tren.escritura.xml");
-		ObjectMapper mapper = new XmlMapper();
+		ObjectMapper xmlMapper = new XmlMapper();
 		try {
-			mapper.writeValue(new File(nombreFicheroXML), informacion);
+			// Opción para que aparezca la indentación, saltos de línea, etc.
+			xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+	        xmlMapper.writeValue(new File(nombreFicheroXML), informacion);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -183,7 +184,6 @@ public class GestorFicherosXML {
 
 		if (listaTrenes != null && listaTrenes.size() > 0) {
 			informacionXMLEscritura = new InfoTrenesLineaColorXML();
-			IColorDAO iColorDao = new ColorDaoJDBC();
 			List<TrenEscXML> listaTrenesEscXML = new ArrayList<TrenEscXML>();
 			for (Tren tren : listaTrenes) {
 				System.out.println("Valor de tren: " + tren);
@@ -201,15 +201,15 @@ public class GestorFicherosXML {
 				LineaEscXML lineaXML = new LineaEscXML();
 
 				ColorEscXML colorXML = null;
-				Color color = iColorDao.obtenerColorPorIdLinea(tren.getLinea().getCodigoLinea());
-				if (color != null) {
+				Linea linea= tren.getLinea();
+				if (linea != null) {
 					colorXML = new ColorEscXML();
-					colorXML.setIdColor(color.getCodigoColor());
-					colorXML.setCodigoHexadecimal(color.getCodigoHexadecimal());
-					colorXML.setDescripcion(color.getNombre());
+					colorXML.setIdColor(linea.getColor().getCodigoColor());
+					colorXML.setCodigoHexadecimal(linea.getColor().getCodigoHexadecimal());
+					colorXML.setDescripcion(linea.getColor().getNombre());
 
-					lineaXML.setId(color.getLinea().getCodigoLinea());
-					lineaXML.setNombre_l(color.getLinea().getNombreLargo());
+					lineaXML.setId(linea.getCodigoLinea());
+					lineaXML.setNombre_l(linea.getNombreLargo());
 					lineaXML.setColor(colorXML);
 				}
 

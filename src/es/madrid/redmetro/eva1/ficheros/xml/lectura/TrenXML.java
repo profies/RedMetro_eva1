@@ -13,10 +13,18 @@ public class TrenXML {
 	@JacksonXmlProperty(isAttribute = true, localName = "id")
 	private int id;
 	private String modelo;
-	private String empresa_constructora;
-	private String anyo_incorporacion;
-	private int cod_cochera;
-	private int id_linea;
+	
+	@JacksonXmlProperty(localName = "anyo_incorporacion")
+	private String anyoIncorporacion;
+
+	@JacksonXmlProperty(localName = "empresa_constructora")
+	private String empresaConstructora;
+
+	@JacksonXmlProperty(localName = "cod_cochera")
+	private int codCochera;
+
+	@JacksonXmlProperty(localName = "id_linea")
+	private int idLinea;
 	/**
 	 * @return the id
 	 */
@@ -41,58 +49,35 @@ public class TrenXML {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-	/**
-	 * @return the empresa_constructora
-	 */
-	public String getEmpresa_constructora() {
-		return empresa_constructora;
+	public String getAnyoIncorporacion() {
+		return anyoIncorporacion;
 	}
-	/**
-	 * @param empresa_constructora the empresa_constructora to set
-	 */
-	public void setEmpresa_constructora(String empresa_constructora) {
-		this.empresa_constructora = empresa_constructora;
+	public void setAnyoIncorporacion(String anyoIncorporacion) {
+		this.anyoIncorporacion = anyoIncorporacion;
 	}
-	/**
-	 * @return the anyo_incorporacion
-	 */
-	public String getAnyo_incorporacion() {
-		return anyo_incorporacion;
+	public String getEmpresaConstructora() {
+		return empresaConstructora;
 	}
-	/**
-	 * @param anyo_incorporacion the anyo_incorporacion to set
-	 */
-	public void setAnyo_incorporacion(String anyo_incorporacion) {
-		this.anyo_incorporacion = anyo_incorporacion;
+	public void setEmpresaConstructora(String empresaConstructora) {
+		this.empresaConstructora = empresaConstructora;
 	}
-	/**
-	 * @return the cod_cochera
-	 */
-	public int getCod_cochera() {
-		return cod_cochera;
+	public int getCodCochera() {
+		return codCochera;
 	}
-	/**
-	 * @param cod_cochera the cod_cochera to set
-	 */
-	public void setCod_cochera(int cod_cochera) {
-		this.cod_cochera = cod_cochera;
+	public void setCodCochera(int codCochera) {
+		this.codCochera = codCochera;
 	}
-	/**
-	 * @return the id_linea
-	 */
-	public int getId_linea() {
-		return id_linea;
+	public int getIdLinea() {
+		return idLinea;
 	}
-	/**
-	 * @param id_linea the id_linea to set
-	 */
-	public void setId_linea(int id_linea) {
-		this.id_linea = id_linea;
+	public void setIdLinea(int idLinea) {
+		this.idLinea = idLinea;
 	}
 	@Override
 	public String toString() {
-		return "TrenXML [id=" + id + ", modelo=" + modelo + ", empresa_constructora=" + empresa_constructora
-				+ ", anyo_incorporacion=" + anyo_incorporacion + ", cod_cochera=" + cod_cochera + ", id_linea="
-				+ id_linea + "]";
+		return "TrenXML [id=" + id + ", modelo=" + modelo + ", anyoIncorporacion=" + anyoIncorporacion
+				+ ", empresaConstructora=" + empresaConstructora + ", codCochera=" + codCochera + ", idLinea=" + idLinea
+				+ "]";
 	}
+	
 }

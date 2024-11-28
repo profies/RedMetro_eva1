@@ -15,7 +15,6 @@ public class Color implements Serializable{
 	private int codigoColor;
 	private String nombre;
 	private String codigoHexadecimal;
-	private Linea linea;
 	/**
 	 * @return the codigoColor
 	 */
@@ -52,22 +51,9 @@ public class Color implements Serializable{
 	public void setCod_hexadecimal(String cod_hexadecimal) {
 		this.codigoHexadecimal = cod_hexadecimal;
 	}
-	/**
-	 * @return the linea
-	 */
-	public Linea getLinea() {
-		return linea;
-	}
-	/**
-	 * @param linea the linea to set
-	 */
-	public void setLinea(Linea linea) {
-		this.linea = linea;
-	}
 	@Override
 	public String toString() {
-		return "Color [codigoColor=" + codigoColor + ", nombre=" + nombre + ", cod_hexadecimal="
-				+ codigoHexadecimal + ", linea=" + linea + "]";
+		return "Color [codigoColor=" + codigoColor + ", nombre=" + nombre + ", codigoHexadecimal=" + codigoHexadecimal
+				+ "]";
 	}
-	
 }

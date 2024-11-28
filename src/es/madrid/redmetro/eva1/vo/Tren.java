@@ -95,6 +95,6 @@ public class Tren implements Serializable{
 	@Override
 	public String toString() {
 		return "Tren [codigoTren=" + codigoTren + ", modelo=" + modelo + ", empresaConstructora=" + empresaConstructora
-				+ ", fechaIncorporacion=" + fechaIncorporacion + ", cochera=" + cochera + ", linea=" + linea + "]";
+				+ ", fechaIncorporacion=" + fechaIncorporacion + ", cochera=" + cochera + ", linea=" + linea + "]\n";
 	}
 }

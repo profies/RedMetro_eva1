@@ -1,1 +1,52 @@
-<info-trenes-linea-color><trenes><tren id="1"><modelo>Serie 2000-A</modelo><empresa_constructora>CAF</empresa_constructora><anyo_incorporacion>2000</anyo_incorporacion><cod_cochera>15</cod_cochera><linea id="5"><nombre_l>Arguelles - Pinar de Chamartín</nombre_l><color id="4" cod_hex="#741013"><descripcion>Marrón</descripcion></color></linea></tren><tren id="2"><modelo>Serie 2000-B</modelo><empresa_constructora>CAF</empresa_constructora><anyo_incorporacion>2005</anyo_incorporacion><cod_cochera>15</cod_cochera><linea id="5"><nombre_l>Arguelles - Pinar de Chamartín</nombre_l><color id="4" cod_hex="#741013"><descripcion>Marrón</descripcion></color></linea></tren><tren id="3"><modelo>Serie 3000</modelo><empresa_constructora>CAF</empresa_constructora><anyo_incorporacion>2010</anyo_incorporacion><cod_cochera>15</cod_cochera><linea id="5"><nombre_l>Arguelles - Pinar de Chamartín</nombre_l><color id="4" cod_hex="#741013"><descripcion>Marrón</descripcion></color></linea></tren><tren id="4"><modelo>Serie 5000</modelo><empresa_constructora>CAF</empresa_constructora><anyo_incorporacion>2010</anyo_incorporacion><cod_cochera>2</cod_cochera><linea id="9"><nombre_l>Nuevos Ministerios - Aeropuerto</nombre_l><color id="8" cod_hex="#f5418e"><descripcion>Rosa</descripcion></color></linea></tren></trenes></info-trenes-linea-color>
+<info-trenes-linea-color>
+  <trenes>
+    <tren id="1">
+      <modelo>Serie 2000-A</modelo>
+      <empresa_constructora>CAF</empresa_constructora>
+      <anyo_incorporacion>2000</anyo_incorporacion>
+      <cod_cochera>15</cod_cochera>
+      <linea id="5">
+        <nombre_l>Arguelles - Pinar de Chamartín</nombre_l>
+        <color id="4" cod_hex="#741013">
+          <descripcion>Marrón</descripcion>
+        </color>
+      </linea>
+    </tren>
+    <tren id="2">
+      <modelo>Serie 2000-B</modelo>
+      <empresa_constructora>CAF</empresa_constructora>
+      <anyo_incorporacion>2005</anyo_incorporacion>
+      <cod_cochera>15</cod_cochera>
+      <linea id="5">
+        <nombre_l>Arguelles - Pinar de Chamartín</nombre_l>
+        <color id="4" cod_hex="#741013">
+          <descripcion>Marrón</descripcion>
+        </color>
+      </linea>
+    </tren>
+    <tren id="3">
+      <modelo>Serie 3000</modelo>
+      <empresa_constructora>CAF</empresa_constructora>
+      <anyo_incorporacion>2010</anyo_incorporacion>
+      <cod_cochera>15</cod_cochera>
+      <linea id="5">
+        <nombre_l>Arguelles - Pinar de Chamartín</nombre_l>
+        <color id="4" cod_hex="#741013">
+          <descripcion>Marrón</descripcion>
+        </color>
+      </linea>
+    </tren>
+    <tren id="4">
+      <modelo>Serie 5000</modelo>
+      <empresa_constructora>CAF</empresa_constructora>
+      <anyo_incorporacion>2010</anyo_incorporacion>
+      <cod_cochera>2</cod_cochera>
+      <linea id="9">
+        <nombre_l>Nuevos Ministerios - Aeropuerto</nombre_l>
+        <color id="8" cod_hex="#f5418e">
+          <descripcion>Rosa</descripcion>
+        </color>
+      </linea>
+    </tren>
+  </trenes>
+</info-trenes-linea-color>

@@ -26,12 +26,13 @@ public class CocheraDaoJDBC implements ICocheraDAO{
 		try {
 			String sentenciaSQL= "INSERT INTO T_COCHERA VALUES (?, ?, ? , ?)";
 			declaracion = conexion.prepareStatement(sentenciaSQL);
-			System.out.println(sentenciaSQL);
-		
+
 			declaracion.setInt(1, cochera.getCodigoCochera());
 			declaracion.setString(2, cochera.getNombre());
 			declaracion.setString(3, cochera.getDireccion());
 			declaracion.setBoolean(4, cochera.isDeposito());
+
+			System.out.println(declaracion);
 			
 			resultadoSentencia = declaracion.executeUpdate();
 
@@ -60,10 +61,11 @@ public class CocheraDaoJDBC implements ICocheraDAO{
 		PreparedStatement declaracion=null;
 		try {
 			String sentenciaSQL= "DELETE FROM T_COCHERA WHERE cod_cochera = ?";
-			System.out.println(sentenciaSQL);
 
 			declaracion = conexion.prepareStatement(sentenciaSQL);
 			declaracion.setInt(1, idCochera);
+
+			System.out.println(declaracion);
 		
 			resultadoSentencia = declaracion.executeUpdate();
 
@@ -100,7 +102,9 @@ public class CocheraDaoJDBC implements ICocheraDAO{
 			declaracion.setString(2, cochera.getDireccion());
 			declaracion.setBoolean(3, cochera.isDeposito());
 			declaracion.setInt(4, cochera.getCodigoCochera());
-			
+		
+			System.out.println(declaracion);
+
 			resultadoSentencia = declaracion.executeUpdate();
 
 		} catch (SQLException e) {

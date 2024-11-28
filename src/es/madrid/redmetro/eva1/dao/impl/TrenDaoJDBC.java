@@ -14,6 +14,7 @@ import java.util.List;
 import es.madrid.redmetro.eva1.dao.ITrenDAO;
 import es.madrid.redmetro.eva1.utilidades.GestorConexionSGDB;
 import es.madrid.redmetro.eva1.vo.Cochera;
+import es.madrid.redmetro.eva1.vo.Color;
 import es.madrid.redmetro.eva1.vo.Linea;
 import es.madrid.redmetro.eva1.vo.Tren;
 
@@ -32,7 +33,6 @@ public class TrenDaoJDBC implements ITrenDAO{
 		try {
 			String sentenciaSQL= "INSERT INTO T_TREN VALUES (?, ?, ? , ?, ?, ?)";
 			declaracion = conexion.prepareStatement(sentenciaSQL);
-			System.out.println(sentenciaSQL);
 		
 			declaracion.setInt(1, tren.getCodigoTren());
 			declaracion.setString(2, tren.getModelo());
@@ -43,6 +43,8 @@ public class TrenDaoJDBC implements ITrenDAO{
 			declaracion.setInt(5, tren.getCochera().getCodigoCochera());
 			declaracion.setInt(6, tren.getLinea().getCodigoLinea());
 			
+			System.out.println(declaracion);
+
 			resultadoSentencia = declaracion.executeUpdate();
 
 		} catch (SQLException e) {
@@ -70,11 +72,12 @@ public class TrenDaoJDBC implements ITrenDAO{
 		PreparedStatement declaracion=null;
 		try {
 			String sentenciaSQL= "DELETE FROM T_COCHERA WHERE cod_cochera = ?";
-			System.out.println(sentenciaSQL);
 
 			declaracion = conexion.prepareStatement(sentenciaSQL);
 			declaracion.setInt(1, idCochera);
-		
+
+			System.out.println(declaracion);
+	
 			resultadoSentencia = declaracion.executeUpdate();
 
 		} catch (SQLException e) {
@@ -104,12 +107,13 @@ public class TrenDaoJDBC implements ITrenDAO{
 			String sentenciaSQL= "UPDATE T_COCHERA SET nombre = ?, direccion = ? , deposito = ?"
 					  + " WHERE cod_cochera = ?";
 			declaracion = conexion.prepareStatement(sentenciaSQL);
-			System.out.println(sentenciaSQL);
 		
 			declaracion.setString(1, cochera.getNombre());
 			declaracion.setString(2, cochera.getDireccion());
 			declaracion.setBoolean(3, cochera.isDeposito());
 			declaracion.setInt(4, cochera.getCodigoCochera());
+
+			System.out.println(declaracion);
 			
 			resultadoSentencia = declaracion.executeUpdate();
 
@@ -139,11 +143,17 @@ public class TrenDaoJDBC implements ITrenDAO{
 		PreparedStatement declaracion=null;
 		ResultSet resultadoSentencia=null;
 		try {
-			String sentenciaSQL= "SELECT * FROM T_TREN tren, T_LINEA linea , T_COCHERA cochera "
-								+ "where tren.cod_cochera =cochera.cod_cochera "
-								+ "and tren.cod_linea =linea.cod_linea";
+			String sentenciaSQL= "SELECT * FROM "
+								+ "T_TREN tren join T_LINEA linea "
+								+ "ON tren.cod_linea =linea.cod_linea"
+								+ " join T_COCHERA cochera "
+								+ " on tren.cod_cochera =cochera.cod_cochera "
+								+ " join T_COLOR color "
+								+ " on linea.cod_color =color.cod_color ";
 			declaracion = conexion.prepareStatement(sentenciaSQL);
-			System.out.println(sentenciaSQL);
+
+			System.out.println(declaracion);
+			
 			resultadoSentencia = declaracion.executeQuery();
 			while (resultadoSentencia.next()) {
 				if (listaTrenes==null) {
@@ -158,10 +168,18 @@ public class TrenDaoJDBC implements ITrenDAO{
 				// Información de la Línea
 				Linea linea = new Linea();
 				linea.setCodigoLinea(resultadoSentencia.getInt("linea.cod_linea"));
-				linea.setFechaInauguracion(resultadoSentencia.getDate("linea.fecha_inauguracion"));
 				linea.setKilometros(resultadoSentencia.getFloat("linea.kilometros"));
 				linea.setNombreCorto(resultadoSentencia.getString("linea.nombre_corto"));
 				linea.setNombreLargo(resultadoSentencia.getString("linea.nombre_largo"));
+				
+				// Información de Color
+				Color color = new Color();
+				color.setCodigoColor(resultadoSentencia.getInt("color.cod_color"));
+				color.setNombre(resultadoSentencia.getString("color.nombre"));
+				color.setCod_hexadecimal(resultadoSentencia.getString("color.cod_hexadecimal"));
+
+				linea.setColor(color);
+				
 				tren.setLinea(linea);
 
 				// Información de la Cochera

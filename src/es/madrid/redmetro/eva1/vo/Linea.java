@@ -18,6 +18,14 @@ public class Linea implements Serializable{
 	private String nombreLargo;
 	private Date fechaInauguracion;
 	private float kilometros;
+	private Color color;
+	
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
 	/**
 	 * @return the codigoLinea
 	 */
@@ -81,7 +89,6 @@ public class Linea implements Serializable{
 	@Override
 	public String toString() {
 		return "Linea [codigoLinea=" + codigoLinea + ", nombreCorto=" + nombreCorto + ", nombreLargo=" + nombreLargo
-				+ ", fechaInauguracion=" + fechaInauguracion + ", kilometros=" + kilometros + "]";
+				+ ", fechaInauguracion=" + fechaInauguracion + ", kilometros=" + kilometros + ", color=" + color + "]";
 	}
-
 }

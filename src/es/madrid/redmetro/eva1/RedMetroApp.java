@@ -5,11 +5,11 @@ package es.madrid.redmetro.eva1;
 
 import java.util.Scanner;
 
-import es.madrid.redmetro.eva1.dao.IColorDAO;
-import es.madrid.redmetro.eva1.dao.impl.ColorDaoJDBC;
+import es.madrid.redmetro.eva1.dao.ILineaDAO;
+import es.madrid.redmetro.eva1.dao.impl.LineaDaoJDBC;
 import es.madrid.redmetro.eva1.ficheros.GestorFicheroCSV;
 import es.madrid.redmetro.eva1.ficheros.GestorFicherosXML;
-import es.madrid.redmetro.eva1.vo.Color;
+import es.madrid.redmetro.eva1.vo.Linea;
 
 /**
  * @author Isidoro Nevares Martín (IES Virgen de la Paloma)
@@ -57,10 +57,19 @@ public class RedMetroApp {
 			switch (operacion) {
 			case "A": { // Consulta Linea-Color
 				System.out.println("Ejecutar consultarLineaColor");
-				IColorDAO iColorDao = new ColorDaoJDBC();
-				Color color = iColorDao.obtenerColorPorIdLinea(13);
-				System.out.println("La Línea " + color.getLinea().getNombreLargo() + "( " + color.getLinea().getCodigoLinea()
-						+ ") tiene como color " + color.getNombre() + "( " + color.getCodigoHexadecimal() + ")");
+				ILineaDAO iColorDao = new LineaDaoJDBC();
+				Linea linea = iColorDao.obtenerInformacionLinea(13);
+				StringBuffer textoLinea= new StringBuffer();
+				textoLinea.append("La Línea ")
+							.append(linea.getNombreLargo())
+							.append("(")
+							.append(linea.getCodigoLinea())
+							.append(") tiene como color ")
+							.append(linea.getColor().getNombre())
+							.append("(")
+							.append(linea.getColor().getCodigoHexadecimal())
+				 			.append(")");
+				System.out.println(textoLinea);
 				break;
 			}
 			case "B": { // Procesar Fichero CSV Cocheras

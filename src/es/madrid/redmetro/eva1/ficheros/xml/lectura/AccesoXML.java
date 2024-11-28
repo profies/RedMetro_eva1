@@ -13,12 +13,9 @@ public class AccesoXML {
 	@JacksonXmlProperty(isAttribute = true, localName = "id")
 	private int idAcceso;
 	private String nombre;
-	private int acceso_discapacidad;
-	@Override
-	public String toString() {
-		return "AccesoXML [idAcceso=" + idAcceso + ", nombre=" + nombre + ", acceso_dicapacidad=" + acceso_discapacidad
-				+ "]";
-	}
+	@JacksonXmlProperty(localName = "acceso_discapacidad")
+	private int accesoDiscapacidad;
+	
 	/**
 	 * @return the idAcceso
 	 */
@@ -43,16 +40,16 @@ public class AccesoXML {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/**
-	 * @return the acceso_discapacidad
-	 */
-	public int getAcceso_discapacidad() {
-		return acceso_discapacidad;
+	public int getAccesoDiscapacidad() {
+		return accesoDiscapacidad;
 	}
-	/**
-	 * @param acceso_discapacidad the acceso_discapacidad to set
-	 */
-	public void setAcceso_discapacidad(int acceso_discapacidad) {
-		this.acceso_discapacidad = acceso_discapacidad;
+	public void setAccesoDiscapacidad(int accesoDiscapacidad) {
+		this.accesoDiscapacidad = accesoDiscapacidad;
 	}
+	@Override
+	public String toString() {
+		return "AccesoXML [idAcceso=" + idAcceso + ", nombre=" + nombre + ", accesoDiscapacidad=" + accesoDiscapacidad
+				+ "]";
+	}
+
 }
